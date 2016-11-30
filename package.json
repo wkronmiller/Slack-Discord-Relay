@@ -1,0 +1,19 @@
+{
+  "name": "discord-to-slack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js --exec babel-node"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@slack/client": "^3.6.1",
+    "babel": "^6.5.2",
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0",
+    "discord.io": "^2.3.0",
+    "nodemon": "^1.11.0",
+    "redis": "^2.6.3",
+    "request": "^2.79.0"
+  }
+}
