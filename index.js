@@ -33,7 +33,7 @@ const slack_bot_name = 'slackbot';
 
 rtm.on(RTM_EVENTS.MESSAGE, (message) => {
     if(message.channel != slack_channel || message.user != slack_user){
-        console.log('skipping', message, {slack_channel, slack_user});
+        //console.log('skipping', message, {slack_channel, slack_user});
         return;
     }
     //TODO: clean message
@@ -55,7 +55,6 @@ function sendSlack(message, name){
             method: 'POST',
             body: JSON.stringify(body),
         };
-        console.log('opts', options);
         request(options, (err, response, body) => {
             if(err){
                 throw err;
@@ -103,7 +102,6 @@ function checkLoop(){
 }
 
 discordBot.on('message', (_user, _userId, channelId, _message, event) => {
-    console.log('message', event);
     getMessages();
 });
 
@@ -146,7 +144,6 @@ function getMessages() {
     .then((messages) => messages.map(({message}) => message))
     .then((messages) => messages.filter(({user}) => user != discord_bot_name))
     .then((messages) => messages.forEach((message) => {
-        console.log('sending', message);
         sendSlack(message.content, message.user)
     }))
 }
