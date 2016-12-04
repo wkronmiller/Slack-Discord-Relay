@@ -36,6 +36,7 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
         //console.log('skipping', message, {slack_channel, slack_user});
         return;
     }
+    console.log('Sending slack message to discord');
     //TODO: clean message
     if(discord_connected){
         discordBot.sendMessage({to: discord_channel, message: message.text, typing: true}, (err, response) => {
@@ -49,6 +50,7 @@ rtm.on(RTM_EVENTS.MESSAGE, (message) => {
 });
 
 function sendSlack(message, name){
+    console.log('Sending slack message');
     function postData(body) {
         const options = {
             url: slack_url,
@@ -63,7 +65,7 @@ function sendSlack(message, name){
         });
     }
 
-    postData({text: message, username: name})
+    postData({text: message, username: name, channel: process.env.SLACK_CHANNEL})
 }
 
 var last_message_id = undefined;
@@ -144,6 +146,7 @@ function getMessages() {
     .then((messages) => messages.map(({message}) => message))
     .then((messages) => messages.filter(({user}) => user != discord_bot_name))
     .then((messages) => messages.forEach((message) => {
+        console.log('adding discord message');
         sendSlack(message.content, message.user)
     }))
 }
