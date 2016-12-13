@@ -8,8 +8,8 @@ WORKDIR ${workdir}
 COPY package.json ${workdir}
 RUN npm install
 
-COPY *.js ${workdir}/
+COPY lib/*.js ${workdir}/lib/
 COPY .babelrc ${workdir}/
 
 
-CMD ["npm", "start"]
+CMD ["npm", "run", "start-prod"]
